@@ -163,17 +163,25 @@ contract PasskeyActionFlowsTest is Test {
         uint8[] memory policy = new uint8[](1);
         policy[0] = 1;
 
+        AuthConfigManager.PasskeyReconfigConfig memory config =
+            AuthConfigManager.PasskeyReconfigConfig({
+                authenticators: newAuths,
+                signingPolicy: policy,
+                signingThreshold: 1,
+                reconfigPolicy: policy,
+                reconfigThreshold: 1,
+                isKnownDevicePattern: false
+            });
+
+        AuthConfigManager.PasskeyReconfigRequest memory request =
+            AuthConfigManager.PasskeyReconfigRequest({
+                account: account,
+                config: config,
+                proofs: _proposalProof()
+            });
+
         manager.proposeReconfigurationWithPasskey(
-            abi.encode(
-                account,
-                newAuths,
-                policy,
-                uint8(1),
-                policy,
-                uint8(1),
-                false,
-                _proposalProof()
-            )
+            abi.encode(request)
         );
     }
 

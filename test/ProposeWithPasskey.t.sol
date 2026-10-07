@@ -62,18 +62,26 @@ contract ProposeWithPasskeyTest is Test {
         uint8[] memory policy = new uint8[](1);
         policy[0] = 1;
 
+        AuthConfigManager.PasskeyReconfigConfig memory config =
+            AuthConfigManager.PasskeyReconfigConfig({
+                authenticators: newAuths,
+                signingPolicy: policy,
+                signingThreshold: 1,
+                reconfigPolicy: policy,
+                reconfigThreshold: 1,
+                isKnownDevicePattern: true
+            });
+
+        AuthConfigManager.PasskeyReconfigRequest memory request =
+            AuthConfigManager.PasskeyReconfigRequest({
+                account: REAL_ACCOUNT,
+                config: config,
+                proofs: _realProposeProof()
+            });
+
         vm.prank(REAL_ACCOUNT);
         manager.proposeReconfigurationWithPasskey(
-            abi.encode(
-                REAL_ACCOUNT,
-                newAuths,
-                policy,
-                uint8(1),
-                policy,
-                uint8(1),
-                true,
-                _realProposeProof()
-            )
+            abi.encode(request)
         );
 
         AuthConfigManager.PendingReconfig memory pending = manager.getPendingReconfig(REAL_ACCOUNT);
