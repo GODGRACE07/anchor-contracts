@@ -23,3 +23,8 @@ AuthConfigManager v3: 0xb9858903eaa81815cB101Af3de1D307dc40A32e1
 AnchorViews v2: 0xd9057164E7AC0Ce142A961E363086640F2BE08Cc
   tx: 0x9230321cd34f3bd0ce8c7c58730ef917ba1b6c4e273ae6eba72335e4088d4a52
 Superseded (do not use): AuthConfigManager 0xD9eaFF65..., AnchorViews 0x3B2AFD56...
+
+## CURRENT (used by frontend .env.local)
+IdentityRegistry:  0xe92db7ed079aA6fF8888C6dD88f60C9Ed43De917
+AuthConfigManager: 0x8330D46baE39D554DaACc61c424F27fCf364919B
+AnchorViews:       0x08E2722d76fA8f964d88E44c202D3A3609c7A329

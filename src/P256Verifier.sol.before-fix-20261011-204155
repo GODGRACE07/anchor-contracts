@@ -1,0 +1,39 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.26;
+
+library P256Verifier {
+    address internal constant VERIFIER =
+        address(0x100);
+
+    function verify(
+        bytes32 messageHash,
+        bytes32 r,
+        bytes32 s,
+        bytes32 pubKeyX,
+        bytes32 pubKeyY
+    ) internal view returns (bool) {
+        bytes memory input = abi.encodePacked(
+            messageHash,
+            r,
+            s,
+            pubKeyX,
+            pubKeyY
+        );
+
+        (bool success, bytes memory result) =
+            VERIFIER.staticcall(input);
+
+        // The P-256 verifier must return a complete 32-byte result.
+        if (!success || result.length != 32) {
+            return false;
+        }
+
+        uint256 verified;
+        assembly {
+            verified := mload(add(result, 0x20))
+        }
+
+        // Only an explicit success value is accepted.
+        return verified == 1;
+    }
+}
