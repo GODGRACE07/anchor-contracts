@@ -3,3 +3,7 @@ out/
 cache/
 .env
 *.save
+.env.local
+broadcast
+cache
+out
