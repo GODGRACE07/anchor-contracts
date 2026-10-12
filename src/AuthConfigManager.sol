@@ -9,8 +9,8 @@ import "./WebAuthnVerifier.sol";
 contract AuthConfigManager {
     IdentityRegistry public immutable IDENTITY_REGISTRY;
 
-    uint64 public constant RECONFIG_DELAY = 5 minutes;
-    uint64 public constant TRANSFER_DELAY = 2 minutes;
+    uint64 public constant RECONFIG_DELAY = 30 seconds;
+    uint64 public constant TRANSFER_DELAY = 15 seconds;
 
     enum Scheme {
         SECP256K1,
